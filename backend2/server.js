@@ -6,7 +6,7 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const port = 3001;
 const morgan = require('morgan');
-const isAuthenticated = require('./middleware/isAuthenticated');
+// const isAuthenticated = require('./middleware/isAuthenticated');
 
 const app = express();
 
@@ -35,7 +35,7 @@ app.use(
 );
 
 // 정적인 파일 관리
-// app.use(express.static(path.join(__dirname, '../frontend', 'build')));
+app.use(express.static(path.join(__dirname, '../front2', 'build')));
 
 // 인증 미들웨어 적용
 // app.use(isAuthenticated);
@@ -110,11 +110,10 @@ app.get('/', async (req, res) => {
 
 
 // 특정 페이지 라우터
-
-// app.use('/', (req, res) => {
-//   console.log('main');
-//   res.sendFile(path.join(__dirname, '../frontend', 'build', 'index.html'));
-// });
+app.use('/', (req, res) => {
+  console.log('main');
+  res.sendFile(path.join(__dirname, '../front2', 'build', 'index.html'));
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
