@@ -4,7 +4,7 @@ const path = require('path');
 const dotenv = require('dotenv').config();
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
-const port = 3001;
+const port = 3000;
 const morgan = require('morgan');
 // const isAuthenticated = require('./middleware/isAuthenticated');
 
@@ -42,20 +42,20 @@ app.use(express.static(path.join(__dirname, '../front2', 'build')));
 
 
 // Create - 새 컨텐츠 추가
-// app.post('/', async (req, res) => {
-//   try {
-//     const { url_html } = req.body;
-//     const url_addr = '123'
-//     const business_bno = '916-23-31691';
-//     const [result] = await connectDb.query(
-//       'INSERT INTO cms_contents (url_addr, business_bno, url_html) VALUES (?, ?, ?)',
-//       [url_addr, business_bno, url_html]
-//     );
-//     res.status(201).json({ content_idx: result.insertId });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
+app.post('/', async (req, res) => {
+  try {
+    const { url_html } = req.body;
+    const url_addr = '123'
+    const business_bno = '916-23-31691';
+    const [result] = await connectDb.query(
+      'INSERT INTO cms_contents (url_addr, business_bno, url_html) VALUES (?, ?, ?)',
+      [url_addr, business_bno, url_html]
+    );
+    res.status(201).json({ content_idx: result.insertId });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // Read All - 모든 컨텐츠 조회
 
